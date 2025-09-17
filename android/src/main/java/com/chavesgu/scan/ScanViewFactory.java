@@ -29,16 +29,16 @@ public class ScanViewFactory extends PlatformViewFactory {
     }
 @Override
 public PlatformView create(Context context, int viewId, Object args) {
-    Map<String, Object> creationParams = null;
+    Map<String, Object> creationParams = new HashMap<>();
     if (args instanceof Map) {
-        creationParams = (Map<String, Object>) args;
+        for (Map.Entry<?, ?> entry : ((Map<?, ?>) args).entrySet()) {
+            if (entry.getKey() instanceof String) {
+                creationParams.put((String) entry.getKey(), entry.getValue());
+            }
+        }
     }
     return new ScanPlatformView(messenger, this.context, this.activity, this.activityPluginBinding, viewId, creationParams);
 }
 
-    // @Override
-    // public PlatformView create(Context context, int viewId, Object args) {
-    //     final Map<String, Object> creationParams = (Map<String, Object>) args;
-    //     return new ScanPlatformView(messenger, this.context, this.activity, this.activityPluginBinding, viewId, creationParams);
-    // }
+
 }

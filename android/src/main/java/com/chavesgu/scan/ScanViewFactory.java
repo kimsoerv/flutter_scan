@@ -27,10 +27,18 @@ public class ScanViewFactory extends PlatformViewFactory {
         this.activity = activity;
         this.activityPluginBinding = activityPluginBinding;
     }
-
-    @Override
-    public PlatformView create(Context context, int viewId, Object args) {
-        final Map<String, Object> creationParams = (Map<String, Object>) args;
-        return new ScanPlatformView(messenger, this.context, this.activity, this.activityPluginBinding, viewId, creationParams);
+@Override
+public PlatformView create(Context context, int viewId, Object args) {
+    Map<String, Object> creationParams = null;
+    if (args instanceof Map) {
+        creationParams = (Map<String, Object>) args;
     }
+    return new ScanPlatformView(messenger, this.context, this.activity, this.activityPluginBinding, viewId, creationParams);
+}
+
+    // @Override
+    // public PlatformView create(Context context, int viewId, Object args) {
+    //     final Map<String, Object> creationParams = (Map<String, Object>) args;
+    //     return new ScanPlatformView(messenger, this.context, this.activity, this.activityPluginBinding, viewId, creationParams);
+    // }
 }
